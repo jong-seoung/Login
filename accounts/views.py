@@ -4,6 +4,7 @@ from rest_framework.views import APIView
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from .serializers import UserSerializer, RegisterSerializer
+from rest_framework_simplejwt.tokens import RefreshToken
 
 
 class SignUpAPIView(APIView):
@@ -54,3 +55,20 @@ class LoginAPIView(APIView):
             return res
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+class LogoutAPIView(APIView):
+    def post(self, request):
+        refresh_token = request.COOKIES.get('refresh')
+
+        if refresh_token:
+            token = RefreshToken(refresh_token)
+            token.blacklist()
+
+            response = Response({'message': 'Logged out successfully.'}, status=status.HTTP_200_OK)
+            response.delete_cookie('access')
+            response.delete_cookie('refresh')
+
+            return response
+        else:
+            return Response({'message': 'No refresh token found.'}, status=status.HTTP_400_BAD_REQUEST)
