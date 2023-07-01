@@ -39,9 +39,7 @@ class User(TimeStampedModel, AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(_("email address"), unique=True)
     name = models.CharField(_("name"), max_length=10, blank=True, null=True)
     nickname = models.CharField(
-        _("nickname"),
-        max_length=15,
-        unique=True,
+        _("nickname"), max_length=15, unique=True, blank=True, null=True
     )
     is_staff = models.BooleanField(
         _("staff status"),
