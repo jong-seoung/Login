@@ -11,6 +11,9 @@ SECRET_KEY = env("SECRET_KEY")
 
 KAKAO_REST_API_KEY = env("KAKAO_REST_API_KEY")
 
+SOCIAL_AUTH_GITHUB_CLIENT_ID = env("SOCIAL_AUTH_GITHUB_CLIENT_ID")
+SOCIAL_AUTH_GITHUB_SECRET = env("SOCIAL_AUTH_GITHUB_SECRET")
+
 DEBUG = True
 
 ALLOWED_HOSTS = []
@@ -28,6 +31,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.kakao',
+    'allauth.socialaccount.providers.github',
     'rest_framework',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
